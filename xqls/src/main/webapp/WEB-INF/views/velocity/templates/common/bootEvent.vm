@@ -1,0 +1,6 @@
+<link href="${link.contextPath}/resources/assets/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="${link.contextPath}/resources/assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="${link.contextPath}/resources/assets/css/bootstrap-timepicker.css">
+<link rel="stylesheet" href="${link.contextPath}/resources/assets/css/ace.min.css">
+<script src="${link.contextPath}/resources/assets/js/bootstrap.min.js"></script>
+<script src="${link.contextPath}/resources/assets/js/date-time/bootstrap-timepicker.min.js"></script>

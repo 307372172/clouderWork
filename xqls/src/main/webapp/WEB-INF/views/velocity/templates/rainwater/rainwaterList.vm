@@ -1,0 +1,170 @@
+#parse("common/baseList.vm")
+#parse("common/bootBox.vm")
+#parse("common/bootTime.vm")
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3 class="header smaller lighter blue">企业雨水排放口实时数据</h3>
+
+
+            <form class=" dataTables_filter">
+                所属区块： <select   class="input-small" id="blockNo" onchange= "changeBlock()" >
+                <option value="">全部区域</option> 
+            #foreach($block in $allBlock)
+            	<option value=$block.blockNo>$block.blockName</option> 
+			#end
+                  </select>
+                 企业名称： <select   class="input-small" id="enterpriseNo">
+                <option value="">请选择</option>
+                  </select>
+                <button type="button" class="btn btn-info btn-sm" onclick="queryEnterpriseList()">
+                    <i class="icon-search  bigger-110"></i>
+                    查询
+                </button>
+                <button type="button" class="btn  btn-sm" onclick="clearSearch()">
+                    <i class="icon-reply-all  bigger-110"></i>
+                    重置
+                </button>
+            </form>
+            <div class="table-responsive">
+                <table id="sample-table-5" class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th class="center">
+                            <label>
+                                <input type="checkbox" class="ace"/>
+                                <span class="lbl"></span>
+                            </label>
+                        </th>
+                        <th>雨水排放口</th>
+                        <th>操作</th>
+                        <th>网络</th>
+                        <th>阀门实时</th>
+                        <th>阀门设定</th>
+                        <th>采样仪状态</th>
+                        <th>采样仪进水</th>
+                        <th>排水渠液位</th>
+                        <th>应急池水泵电流</th>
+                        <th>仪表房门</th>
+                        <th>电源</th>
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+	jQuery(function($) {
+	});
+    function clearSearch() {
+        $("#enterpriseName").val('');
+        $("#blockNo").val('');
+    }
+    var enterpriseTable;
+	function cyRecord(enterpriseNo) {
+		 $.ajax({
+            url: "${link.contextPath}/rainwater/getCyRecordByEnterpriseNo.html",//这个就是请求地址对应sAjaxSource
+            data: {enterpriseNo:enterpriseNo},//这个是把datatable的一些基本数据传给后台,比如起始位置,每页显示的行数
+            type: 'post',
+            success: function (data) {
+                bootBoxShow(data,"采样记录");
+            },
+            error: function (msg) {
+                bootBoxAlert("查询异常");
+            }
+        });
+
+    }
+    function queryAllSSDataList() {
+        var params = {};
+        params.enterpriseNo = $("#enterpriseNo").val();
+		params.blockNo = $("#blockNo").val();
+        var colums = [
+            {
+                "mData": "ssdata_no",
+                "sClass": "center",
+                "mRender": function (data, type, full, meta) {
+                    return '<label><input type="checkbox" name="enterprise" value="' + data + '" class="ace"> <span class="lbl"></span></label>';
+                }
+            },
+			{
+                "mData": "enterprise.enterpriseName",
+                "sClass": "center"
+            }
+            ,
+			{
+                "mData": "enterprise.enterpriseNo",
+                "sClass": "center",
+                "mRender": function (data, type, full, meta) {
+                    return '<button onclick="editEnterprise(' + data + ')" class="btn btn-xs btn-info" >远程控制</button><button onclick="editEnterprise(' + data + ')" class="btn btn-xs btn-info" >操作记录</button><button onclick="cyRecord(' + data + ')" class="btn btn-xs btn-info" >采样记录</button>';
+                }
+            }
+            ,
+			{
+                "mData": "net",
+                "sClass": "center"
+            }
+            ,
+			{
+                "mData": "valve_ss",
+                "sClass": "center"
+            }
+            ,
+			{
+                "mData": "valve_set",
+                "sClass": "center"
+            }
+            ,
+			{
+                "mData": "instrument_state",
+                "sClass": "center"
+            }
+            ,
+			{
+                "mData": "instrument_inwater",
+                "sClass": "center"
+            }
+            ,
+			{
+                "mData": "water_level",
+                "sClass": "center"
+            }
+            ,
+			{
+                "mData": "i",
+                "sClass": "center"
+            }
+			,
+			{
+                "mData": "door",
+                "sClass": "center"
+            }
+			,
+			{
+                "mData": "dianyuan",
+                "sClass": "center"
+            }
+        ];
+        if (enterpriseTable) {
+            enterpriseTable.fnDestroy();
+        }
+        enterpriseTable = getTableData("sample-table-5", "${link.contextPath}/rainwater/allSSDataList.json", colums, JSON.stringify(params));
+    }
+     queryAllSSDataList();
+</script>
+
+
+
+
+
+
+
+

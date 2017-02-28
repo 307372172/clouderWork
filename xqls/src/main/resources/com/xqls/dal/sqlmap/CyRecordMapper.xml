@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xqls.dal.service.CyRecordMapper">
+  <resultMap id="BaseResultMap" type="com.xqls.dal.model.CyRecord">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="tenant_no" jdbcType="VARCHAR" property="tenant_no" />
+    <result column="enterprise_no" jdbcType="VARCHAR" property="enterprise_no" />
+    <result column="p_num" jdbcType="INTEGER" property="p_num" />
+    <result column="record_time" jdbcType="TIMESTAMP" property="record_time" />
+    <result column="quantity" jdbcType="DOUBLE" property="quantity" />
+    <result column="cod" jdbcType="DOUBLE" property="cod" />
+    <result column="ph" jdbcType="DOUBLE" property="ph" />
+    <result column="nh" jdbcType="DOUBLE" property="nh" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, tenant_no, enterprise_no, p_num, record_time, quantity, cod, ph, nh
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cyrecord
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from cyrecord
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xqls.dal.model.CyRecord">
+    insert into cyrecord (id, tenant_no, enterprise_no, 
+      p_num, record_time, quantity, 
+      cod, ph, nh)
+    values (#{id,jdbcType=VARCHAR}, #{tenant_no,jdbcType=VARCHAR}, #{enterprise_no,jdbcType=VARCHAR}, 
+      #{p_num,jdbcType=INTEGER}, #{record_time,jdbcType=TIMESTAMP}, #{quantity,jdbcType=DOUBLE}, 
+      #{cod,jdbcType=DOUBLE}, #{ph,jdbcType=DOUBLE}, #{nh,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xqls.dal.model.CyRecord">
+    insert into cyrecord
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tenant_no != null">
+        tenant_no,
+      </if>
+      <if test="enterprise_no != null">
+        enterprise_no,
+      </if>
+      <if test="p_num != null">
+        p_num,
+      </if>
+      <if test="record_time != null">
+        record_time,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="cod != null">
+        cod,
+      </if>
+      <if test="ph != null">
+        ph,
+      </if>
+      <if test="nh != null">
+        nh,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="tenant_no != null">
+        #{tenant_no,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprise_no != null">
+        #{enterprise_no,jdbcType=VARCHAR},
+      </if>
+      <if test="p_num != null">
+        #{p_num,jdbcType=INTEGER},
+      </if>
+      <if test="record_time != null">
+        #{record_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=DOUBLE},
+      </if>
+      <if test="cod != null">
+        #{cod,jdbcType=DOUBLE},
+      </if>
+      <if test="ph != null">
+        #{ph,jdbcType=DOUBLE},
+      </if>
+      <if test="nh != null">
+        #{nh,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xqls.dal.model.CyRecord">
+    update cyrecord
+    <set>
+      <if test="tenant_no != null">
+        tenant_no = #{tenant_no,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprise_no != null">
+        enterprise_no = #{enterprise_no,jdbcType=VARCHAR},
+      </if>
+      <if test="p_num != null">
+        p_num = #{p_num,jdbcType=INTEGER},
+      </if>
+      <if test="record_time != null">
+        record_time = #{record_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=DOUBLE},
+      </if>
+      <if test="cod != null">
+        cod = #{cod,jdbcType=DOUBLE},
+      </if>
+      <if test="ph != null">
+        ph = #{ph,jdbcType=DOUBLE},
+      </if>
+      <if test="nh != null">
+        nh = #{nh,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xqls.dal.model.CyRecord">
+    update cyrecord
+    set tenant_no = #{tenant_no,jdbcType=VARCHAR},
+      enterprise_no = #{enterprise_no,jdbcType=VARCHAR},
+      p_num = #{p_num,jdbcType=INTEGER},
+      record_time = #{record_time,jdbcType=TIMESTAMP},
+      quantity = #{quantity,jdbcType=DOUBLE},
+      cod = #{cod,jdbcType=DOUBLE},
+      ph = #{ph,jdbcType=DOUBLE},
+      nh = #{nh,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+   <select id="selectByMap" parameterType="map" resultType="map">
+    select
+    id,
+    tenant_no,
+    enterprise_no,
+    p_num,
+    record_time,
+    quantity,
+    cod,
+    ph,
+    nh 
+    from cyrecord
+    where 1=1
+    <if test="enterpriseNo != null and enterpriseNo != ''">
+      and  enterprise_no =#{enterpriseNo}
+    </if>
+    <if test="tenantNo != null and tenantNo != ''">
+      and  tenant_no=#{tenantNo}  
+    </if>
+    <if test="dateOne != null and dateTwo != null and dateOne != '' and dateTwo != ''">
+      and record_time between #{dateOne} and #{dateTwo} 
+    </if>
+	order by record_time desc
+  </select>
+</mapper>

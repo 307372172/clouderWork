@@ -1,0 +1,32 @@
+h4{
+	font-size:18px;
+	font-weight:bold;
+	color:#2756f8;
+}
+#classTable td{
+	font-size:14px;
+	padding-top:15px;
+}
+#classTable .value{
+	padding-right:30px;
+}
+#teaTable td{
+	text-align:center;
+	padding:2px;
+}
+#teacherTable{
+	width:280px;
+}
+#teacherText{
+	width:180px;
+}
+#studentTable{
+	width:250px;
+}
+#classTable .text{
+	text-align:right;
+}
+#addbutton{
+	float:right;
+	
+}

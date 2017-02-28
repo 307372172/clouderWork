@@ -1,0 +1,173 @@
+#parse("common/baseList.vm")
+#parse("common/bootBox.vm")
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3 class="header smaller lighter blue">远程控制</h3>
+
+            <div>
+            	<!--操控阀门和复位采样仪的实现 -->
+            </div>
+            <form class=" dataTables_filter">
+                 控制指令： <select   class="input-small" id="valveSet">
+                <option value="0" on>关阀门</option>
+                <option value="1">开阀门</option>
+                  </select>
+                  <script type="text/javascript">
+				  if($('#valveSet').val()==0){
+						alert(1);
+					}else{
+						alert(2);
+					}
+				  $('#valveSet').change(function(){
+				  	if($('#valveSet').val()==0){
+						alert(1);
+					}else{
+						alert(2);
+					}
+				  	
+				  })
+				  </script>
+                 开阀时长： <select   class="input-small" id="valveSet">
+                <option value="">1小时</option>
+                <option value="">2小时</option>
+                <option value="">3小时</option>
+                <option value="">4小时</option>
+                <option value="">5小时</option>
+                <option value="">6小时</option>
+                <option value="">7小时</option>
+                <option value="">8小时</option>
+                <option value="">9小时</option>
+                <option value="">10小时</option>
+                <option value="">11小时</option>
+                <option value="">12小时</option>
+                  </select>
+				  
+                 采样方式： <select   class="input-small" id="valveSet">
+                <option value="">分瓶采样</option>
+                <option value="">混合采样</option>
+                  </select>
+				  
+                 单次采样量： <select   class="input-small" id="valveSet">
+                <option value="">400mL</option>
+                <option value="">350mL</option>
+                <option value="">300mL</option>
+                <option value="">250mL</option>
+                <option value="">200mL</option>
+                <option value="">150mL</option>
+                <option value="">100mL</option>
+                <option value="">50mL</option>
+                  </select>
+				  
+                 采样间隔 ： <select   class="input-small" id="valveSet">
+                <option value="">60分钟</option>
+                <option value="">50分钟</option>
+                <option value="">40分钟</option>
+                <option value="">30分钟</option>
+                <option value="">20分钟</option>
+                <option value="">10分钟</option>
+                  </select>
+				  
+                 同时采样数： <select   class="input-small" id="valveSet">
+                <option value="">1瓶</option>
+                <option value="">2瓶</option>
+                <option value="">3瓶</option>
+                  </select>
+            </form>
+            <div class="table-responsive">
+                <table id="sample-table-2" class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th class="center">
+                            <label>
+                                <input type="checkbox" class="ace"/>
+                                <span class="lbl"></span>
+                            </label>
+                        </th>
+                        <th>序号</th>
+                        <th>雨水排放口</th>
+                        <th>网络</th>
+                        <th>阀门实时</th>
+                        <th>阀门设定</th>
+                        <th>采样仪状态</th>
+                        <th>指令状态</th>
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function clearSearch() {
+        $("#enterpriseName").val('');
+        $("#blockNo").val('');
+    }
+	
+        var params = {};
+    var recontrolTable;
+    function queryRecontrolList() {
+         var colums = [
+            {
+                "mData": "recontrolNo",
+                "sClass": "center",
+                "mRender": function (data, type, full, meta) {
+                    return '<label><input type="checkbox" name="recotrolNo" value="' + data + '" class="ace"> <span class="lbl"></span></label>';
+                }
+            },
+            {
+                "mData": "recontrolNo",
+                "sClass": "center"
+				},
+            {
+                "mData": "enterpriseName",
+                "sClass": "center"
+
+            },
+            
+            {
+                "mData": "network",
+                "sClass": "center"
+            },
+            {
+                "mData": "valveTime",
+                "sClass": "center"
+            },
+            {
+                "mData": "valveSet",
+                "sClass": "center"
+            },
+            {
+                "mData": "cystate",
+                "sClass": "center"
+            },
+            {
+                "mData": "commandStatus",
+                "sClass": "center"
+            }
+
+            ];
+        recontrolTable = getTableData("sample-table-2", "${link.contextPath}/recontrol/recontrolListData.json", colums, JSON.stringify(params));
+		
+
+    }
+     queryRecontrolList();
+
+
+</script>
+
+
+
+
+
+
+
+

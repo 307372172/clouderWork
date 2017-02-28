@@ -1,0 +1,5 @@
+
+    <script src='${link.contextPath}/resources/assets/js/jquery-2.0.3.min.js'></script>
+
+    $screen_content
+

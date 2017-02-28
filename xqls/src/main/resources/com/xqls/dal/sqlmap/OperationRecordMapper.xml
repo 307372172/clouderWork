@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xqls.dal.service.OperationRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.xqls.dal.model.OperationRecord" >
+    <id column="operation_no" property="operationNo" jdbcType="VARCHAR" />
+    <result column="recording_time" property="recordingTime" jdbcType="TIMESTAMP" />
+    <result column="dictionary_no" property="dictionaryNo" jdbcType="VARCHAR" />
+    <result column="dictionary_context" property="dictionaryContext" jdbcType="VARCHAR" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="enterprise_no" property="enterpriseNo" jdbcType="VARCHAR" />
+    <result column="tenant_no" property="tenantNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    operation_no, recording_time, dictionary_no, dictionary_context, operator, enterprise_no, 
+    tenant_no
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xqls.dal.model.OperationRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from operation_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from operation_record
+    where operation_no = #{operationNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from operation_record
+    where operation_no = #{operationNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xqls.dal.model.OperationRecordExample" >
+    delete from operation_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xqls.dal.model.OperationRecord" >
+    insert into operation_record (operation_no, recording_time, dictionary_no, 
+      dictionary_context, operator, enterprise_no, 
+      tenant_no)
+    values (#{operationNo,jdbcType=VARCHAR}, #{recordingTime,jdbcType=TIMESTAMP}, #{dictionaryNo,jdbcType=VARCHAR}, 
+      #{dictionaryContext,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{enterpriseNo,jdbcType=VARCHAR}, 
+      #{tenantNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xqls.dal.model.OperationRecord" >
+    insert into operation_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operationNo != null" >
+        operation_no,
+      </if>
+      <if test="recordingTime != null" >
+        recording_time,
+      </if>
+      <if test="dictionaryNo != null" >
+        dictionary_no,
+      </if>
+      <if test="dictionaryContext != null" >
+        dictionary_context,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="enterpriseNo != null" >
+        enterprise_no,
+      </if>
+      <if test="tenantNo != null" >
+        tenant_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="operationNo != null" >
+        #{operationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="recordingTime != null" >
+        #{recordingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dictionaryNo != null" >
+        #{dictionaryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionaryContext != null" >
+        #{dictionaryContext,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseNo != null" >
+        #{enterpriseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantNo != null" >
+        #{tenantNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xqls.dal.model.OperationRecordExample" resultType="java.lang.Integer" >
+    select count(*) from operation_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update operation_record
+    <set >
+      <if test="record.operationNo != null" >
+        operation_no = #{record.operationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recordingTime != null" >
+        recording_time = #{record.recordingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dictionaryNo != null" >
+        dictionary_no = #{record.dictionaryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dictionaryContext != null" >
+        dictionary_context = #{record.dictionaryContext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operator != null" >
+        operator = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseNo != null" >
+        enterprise_no = #{record.enterpriseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenantNo != null" >
+        tenant_no = #{record.tenantNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update operation_record
+    set operation_no = #{record.operationNo,jdbcType=VARCHAR},
+      recording_time = #{record.recordingTime,jdbcType=TIMESTAMP},
+      dictionary_no = #{record.dictionaryNo,jdbcType=VARCHAR},
+      dictionary_context = #{record.dictionaryContext,jdbcType=VARCHAR},
+      operator = #{record.operator,jdbcType=VARCHAR},
+      enterprise_no = #{record.enterpriseNo,jdbcType=VARCHAR},
+      tenant_no = #{record.tenantNo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xqls.dal.model.OperationRecord" >
+    update operation_record
+    <set >
+      <if test="recordingTime != null" >
+        recording_time = #{recordingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dictionaryNo != null" >
+        dictionary_no = #{dictionaryNo,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionaryContext != null" >
+        dictionary_context = #{dictionaryContext,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseNo != null" >
+        enterprise_no = #{enterpriseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantNo != null" >
+        tenant_no = #{tenantNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where operation_no = #{operationNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xqls.dal.model.OperationRecord" >
+    update operation_record
+    set recording_time = #{recordingTime,jdbcType=TIMESTAMP},
+      dictionary_no = #{dictionaryNo,jdbcType=VARCHAR},
+      dictionary_context = #{dictionaryContext,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      enterprise_no = #{enterpriseNo,jdbcType=VARCHAR},
+      tenant_no = #{tenantNo,jdbcType=VARCHAR}
+    where operation_no = #{operationNo,jdbcType=VARCHAR}
+  </update>
+   <select id="selectByMap" parameterType="map" resultType="map">
+    select
+    operation_no operationNo,
+    recording_time recordingTime,
+    dictionary_no dictionaryNo, 
+    dictionary_context dictionaryContext,
+    operator operator, 
+    enterprise_no enterpriseNo,
+    o.tenant_no tenantNo
+    from operation_record o JOIN  enterprise e on o.tenant_no=e.tenant_no 
+
+    where 1=1
+    <if test="beginTime != null">
+	  and recording_time &gt; #{beginTime,jdbcType=Date}
+	 </if> 
+	 <if test="endTime != null">
+	  or recording_time &lt; #{endTime,jdbcType=Date}
+	 </if> 
+    <if test="dictionaryNo != null and dictionaryNo != ''">
+      and  dictionary_no #{dictionaryNo,jdbcType=VARCHAR}
+    </if>
+
+    <if test="dictionaryContext != null and dictionaryContext != ''">
+      and  dictionary_context =#{dictionaryContext,jdbcType=VARCHAR}
+    </if>
+
+    <if test="operator != null and operator != ''">
+      and  operator #{operator,jdbcType=VARCHAR}
+    </if>
+
+    <if test="tenantNo != null and tenantNo != ''">
+      and  o.tenant_no=#{tenantNo}
+    </if>
+
+  </select>
+</mapper>

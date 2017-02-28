@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xqls.dal.service.SSDataMapper">
+  <resultMap id="BaseResultMap" type="com.xqls.dal.model.SSData">
+    <id column="ssdata_no" jdbcType="VARCHAR" property="ssdata_no" />
+    <result column="enterprise_no" jdbcType="VARCHAR" property="enterprise_no" />
+    <result column="net" jdbcType="VARCHAR" property="net" />
+    <result column="valve_ss" jdbcType="VARCHAR" property="valve_ss" />
+    <result column="valve_set" jdbcType="VARCHAR" property="valve_set" />
+    <result column="instrument_state" jdbcType="VARCHAR" property="instrument_state" />
+    <result column="instrument_inwater" jdbcType="VARCHAR" property="instrument_inwater" />
+    <result column="water_level" jdbcType="VARCHAR" property="water_level" />
+    <result column="i" jdbcType="DOUBLE" property="i" />
+    <result column="door" jdbcType="VARCHAR" property="door" />
+    <result column="dianyuan" jdbcType="VARCHAR" property="dianyuan" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ssdata_no, enterprise_no, net, valve_ss, valve_set, instrument_state, instrument_inwater, 
+    water_level, i, door, dianyuan
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ssdata
+    where ssdata_no = #{ssdata_no,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ssdata
+    where ssdata_no = #{ssdata_no,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xqls.dal.model.SSData">
+    insert into ssdata (ssdata_no, enterprise_no, net, 
+      valve_ss, valve_set, instrument_state, 
+      instrument_inwater, water_level, i, 
+      door, dianyuan)
+    values (#{ssdata_no,jdbcType=VARCHAR}, #{enterprise_no,jdbcType=VARCHAR}, #{net,jdbcType=VARCHAR}, 
+      #{valve_ss,jdbcType=VARCHAR}, #{valve_set,jdbcType=VARCHAR}, #{instrument_state,jdbcType=VARCHAR}, 
+      #{instrument_inwater,jdbcType=VARCHAR}, #{water_level,jdbcType=VARCHAR}, #{i,jdbcType=DOUBLE}, 
+      #{door,jdbcType=VARCHAR}, #{dianyuan,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xqls.dal.model.SSData">
+    insert into ssdata
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ssdata_no != null">
+        ssdata_no,
+      </if>
+      <if test="enterprise_no != null">
+        enterprise_no,
+      </if>
+      <if test="net != null">
+        net,
+      </if>
+      <if test="valve_ss != null">
+        valve_ss,
+      </if>
+      <if test="valve_set != null">
+        valve_set,
+      </if>
+      <if test="instrument_state != null">
+        instrument_state,
+      </if>
+      <if test="instrument_inwater != null">
+        instrument_inwater,
+      </if>
+      <if test="water_level != null">
+        water_level,
+      </if>
+      <if test="i != null">
+        i,
+      </if>
+      <if test="door != null">
+        door,
+      </if>
+      <if test="dianyuan != null">
+        dianyuan,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ssdata_no != null">
+        #{ssdata_no,jdbcType=VARCHAR},
+      </if>
+      <if test="enterprise_no != null">
+        #{enterprise_no,jdbcType=VARCHAR},
+      </if>
+      <if test="net != null">
+        #{net,jdbcType=VARCHAR},
+      </if>
+      <if test="valve_ss != null">
+        #{valve_ss,jdbcType=VARCHAR},
+      </if>
+      <if test="valve_set != null">
+        #{valve_set,jdbcType=VARCHAR},
+      </if>
+      <if test="instrument_state != null">
+        #{instrument_state,jdbcType=VARCHAR},
+      </if>
+      <if test="instrument_inwater != null">
+        #{instrument_inwater,jdbcType=VARCHAR},
+      </if>
+      <if test="water_level != null">
+        #{water_level,jdbcType=VARCHAR},
+      </if>
+      <if test="i != null">
+        #{i,jdbcType=DOUBLE},
+      </if>
+      <if test="door != null">
+        #{door,jdbcType=VARCHAR},
+      </if>
+      <if test="dianyuan != null">
+        #{dianyuan,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xqls.dal.model.SSData">
+    update ssdata
+    <set>
+      <if test="enterprise_no != null">
+        enterprise_no = #{enterprise_no,jdbcType=VARCHAR},
+      </if>
+      <if test="net != null">
+        net = #{net,jdbcType=VARCHAR},
+      </if>
+      <if test="valve_ss != null">
+        valve_ss = #{valve_ss,jdbcType=VARCHAR},
+      </if>
+      <if test="valve_set != null">
+        valve_set = #{valve_set,jdbcType=VARCHAR},
+      </if>
+      <if test="instrument_state != null">
+        instrument_state = #{instrument_state,jdbcType=VARCHAR},
+      </if>
+      <if test="instrument_inwater != null">
+        instrument_inwater = #{instrument_inwater,jdbcType=VARCHAR},
+      </if>
+      <if test="water_level != null">
+        water_level = #{water_level,jdbcType=VARCHAR},
+      </if>
+      <if test="i != null">
+        i = #{i,jdbcType=DOUBLE},
+      </if>
+      <if test="door != null">
+        door = #{door,jdbcType=VARCHAR},
+      </if>
+      <if test="dianyuan != null">
+        dianyuan = #{dianyuan,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ssdata_no = #{ssdata_no,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xqls.dal.model.SSData">
+    update ssdata
+    set enterprise_no = #{enterprise_no,jdbcType=VARCHAR},
+      net = #{net,jdbcType=VARCHAR},
+      valve_ss = #{valve_ss,jdbcType=VARCHAR},
+      valve_set = #{valve_set,jdbcType=VARCHAR},
+      instrument_state = #{instrument_state,jdbcType=VARCHAR},
+      instrument_inwater = #{instrument_inwater,jdbcType=VARCHAR},
+      water_level = #{water_level,jdbcType=VARCHAR},
+      i = #{i,jdbcType=DOUBLE},
+      door = #{door,jdbcType=VARCHAR},
+      dianyuan = #{dianyuan,jdbcType=VARCHAR}
+    where ssdata_no = #{ssdata_no,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByMap" parameterType="map" resultType="map">
+   	SELECT enterprise.enterprise_name,ssdata.* 
+    FROM ssdata LEFT JOIN enterprise 
+    ON ssdata.enterprise_no=enterprise.enterprise_no
+    where 1=1
+    <if test="enterpriseNo != null and enterpriseNo != ''">
+      and  enterprise_no =#{enterpriseNo}
+    </if>
+    <if test="tenantNo != null and tenantNo != ''">
+      and  tenant_no=#{tenantNo}  
+    </if>
+	order by enterprise_no desc
+  </select>
+</mapper>

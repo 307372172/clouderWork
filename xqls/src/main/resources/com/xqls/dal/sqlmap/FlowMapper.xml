@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xqls.dal.service.FlowMapper">
+  <resultMap id="BaseResultMap" type="com.xqls.dal.model.Flow">
+    <id column="flow_no" jdbcType="VARCHAR" property="flowNo" />
+    <result column="tenant_no" jdbcType="VARCHAR" property="tenantNo" />
+    <result column="enterprise_no" jdbcType="VARCHAR" property="enterpriseNo" />
+    <result column="settlement_year" jdbcType="VARCHAR" property="settlementYear" />
+    <result column="settlement_month" jdbcType="VARCHAR" property="settlementMonth" />
+    <result column="recording_time" jdbcType="TIMESTAMP" property="recordingTime" />
+    <result column="cumulative_flow" jdbcType="VARCHAR" property="cumulativeFlow" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    flow_no, tenant_no, enterprise_no, settlement_year, settlement_month, recording_time, 
+    cumulative_flow
+  </sql>
+  <select id="selectByEnterprise" parameterType="map" resultType="map">
+    select 
+    <include refid="Base_Column_List" />
+    from flow
+    where enterprise_no = #{enterprise_no,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from flow
+    where flow_no = #{flowNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xqls.dal.model.Flow">
+    insert into flow (flow_no, tenant_no, enterprise_no, 
+      settlement_year, settlement_month, recording_time, 
+      cumulative_flow)
+    values (#{flowNo,jdbcType=VARCHAR}, #{tenantNo,jdbcType=VARCHAR}, #{enterpriseNo,jdbcType=VARCHAR}, 
+      #{settlementYear,jdbcType=VARCHAR}, #{settlementMonth,jdbcType=VARCHAR}, #{recordingTime,jdbcType=TIMESTAMP}, 
+      #{cumulativeFlow,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xqls.dal.model.Flow">
+    insert into flow
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="flowNo != null">
+        flow_no,
+      </if>
+      <if test="tenantNo != null">
+        tenant_no,
+      </if>
+      <if test="enterpriseNo != null">
+        enterprise_no,
+      </if>
+      <if test="settlementYear != null">
+        settlement_year,
+      </if>
+      <if test="settlementMonth != null">
+        settlement_month,
+      </if>
+      <if test="recordingTime != null">
+        recording_time,
+      </if>
+      <if test="cumulativeFlow != null">
+        cumulative_flow,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="flowNo != null">
+        #{flowNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantNo != null">
+        #{tenantNo,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseNo != null">
+        #{enterpriseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementYear != null">
+        #{settlementYear,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementMonth != null">
+        #{settlementMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="recordingTime != null">
+        #{recordingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cumulativeFlow != null">
+        #{cumulativeFlow,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xqls.dal.model.Flow">
+    update flow
+    <set>
+      <if test="tenantNo != null">
+        tenant_no = #{tenantNo,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseNo != null">
+        enterprise_no = #{enterpriseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementYear != null">
+        settlement_year = #{settlementYear,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementMonth != null">
+        settlement_month = #{settlementMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="recordingTime != null">
+        recording_time = #{recordingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cumulativeFlow != null">
+        cumulative_flow = #{cumulativeFlow,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where flow_no = #{flowNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xqls.dal.model.Flow">
+    update flow
+    set tenant_no = #{tenantNo,jdbcType=VARCHAR},
+      enterprise_no = #{enterpriseNo,jdbcType=VARCHAR},
+      settlement_year = #{settlementYear,jdbcType=VARCHAR},
+      settlement_month = #{settlementMonth,jdbcType=VARCHAR},
+      recording_time = #{recordingTime,jdbcType=TIMESTAMP},
+      cumulative_flow = #{cumulativeFlow,jdbcType=VARCHAR}
+    where flow_no = #{flowNo,jdbcType=VARCHAR}
+  </update>
+</mapper>

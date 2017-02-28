@@ -1,0 +1,134 @@
+#parse("common/baseList.vm")
+#parse("common/bootBox.vm")
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3 class="header smaller lighter blue">企业污水排放口</h3>
+
+
+            <form class=" dataTables_filter">
+
+                <input type="text" class="input-small" id="block" placeholder="企业名称">
+              
+                <button type="button" class="btn btn-info btn-sm" onclick="queryRealdataList()">
+                    <i class="icon-search  bigger-110"></i>
+                    查询
+                </button>
+                <button type="button" class="btn  btn-sm" onclick="clearSearch()">
+                    <i class="icon-reply-all  bigger-110"></i>
+                    重置
+                </button>
+                <button type="button" class="btn btn-sm btn-success" onclick="editRealdata()">
+                    <i class="icon-zoom-in align-top "></i>添加
+                </button>
+                
+                <button type="button" class="btn btn-sm btn-danger" onclick="deletenterpriseList()">
+                    <i class="icon-remove align-top "></i>删除
+                </button>
+               
+
+            </form>
+            <div class="table-responsive">
+                <table id="sample-table-2" class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th class="center">
+                            <label>
+                                <input type="checkbox" class="ace"/>
+                                <span class="lbl"></span>
+                            </label>
+                        </th>
+                        <th>排放口</th>
+                        <th>所属区块</th>
+                        <th style="width:25%;">操作</th>
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    function clearSearch() {
+        $("#block").val('');
+    }
+    var realdataTable;
+    function queryRealdataList() {
+        var params = {};
+        params.block = $("#block").val();
+        var colums = [
+            {
+                "mData": "realdataNo",
+                "sClass": "center",
+                "mRender": function (data, type, full, meta) {
+                    return '<label><input type="checkbox" name="realdata" value="' + data + '" class="ace"> <span class="lbl"></span></label>';
+                }
+
+            },
+            {
+                "mData": "enterprise",
+                "sClass": "center"
+            }
+            ,
+            {
+                "mData": "block",
+                "sClass": "center"
+            },
+            {
+                "mData": "enterprise",
+                "sClass": "center",
+                "mRender": function (data, type, full, meta) {
+                    return '<button onclick="control(' + data + ')" class="btn btn-xs btn-info"><i class="icon-edit bigger-50">远程控制</i></button> <button onclick="sampling(' + data + ')" class="btn btn-xs btn-info"><i class="icon-edit bigger-60">采样记录</i></button>  <button onclick="sampling(' + data + ')" class="btn btn-xs btn-info"><i class="icon-edit bigger-60">操作记录</i></button>';
+                }
+            }
+
+            ];
+        if (realdataTable) {
+            realdataTable.fnClearTable();
+            realdataTable.fnDestroy();
+        }
+        realdataTable = getTableData("sample-table-2", "${link.contextPath}/realdata/realdataListData.json", colums, JSON.stringify(params));
+
+
+    }
+
+    
+    function editRealdata() {
+        $.ajax({
+            url: "${link.contextPath}/realdata/realdataEdit.html",//这个就是请求地址对应sAjaxSource
+            
+            type: 'post',
+            success: function (result) {
+                bootBoxShow(result,"新增课程");
+            },
+            error: function (msg) {
+                bootBoxAlert("查询异常");
+            }
+        });
+
+
+    }
+
+
+     queryRealdataList();
+
+
+</script>
+
+
+
+
+
+
+
+
+
+

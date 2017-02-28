@@ -1,0 +1,124 @@
+#parse("common/baseList.vm")
+#parse("common/bootBox.vm")
+#parse("common/bootTime.vm")
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3 class="header smaller lighter blue">超标留样历史记录</h3>
+
+
+            <form class=" dataTables_filter">
+	记录时间     
+			<input class="date-picker" id="dateOne" type="text" data-date-format="yyyy-mm-dd" />
+				<span>
+					<i class="icon-calendar bigger-110"></i>
+				</span>
+	至
+			<input class="date-picker" id="dateTwo" type="text" data-date-format="yyyy-mm-dd" />
+				<span>
+					<i class="icon-calendar bigger-110"></i>
+				</span>
+                <button type="button" class="btn btn-info btn-sm" onclick="querycyRecordList()">
+                    <i class="icon-search  bigger-110"></i>
+                    查询
+                </button>
+                <button type="button" class="btn  btn-sm" onclick="clearSearch()">
+                    <i class="icon-reply-all  bigger-110"></i>
+                    重置
+                </button>
+            </form>
+            <div class="table-responsive">
+                <table id="sample-table-6" class="table table-striped table-bordered table-hover">
+                    <thead>
+	                    <tr>
+	                        <th class="center">
+	                            <label>
+	                                <input type="checkbox" class="ace"/>
+	                                <span class="lbl"></span>
+	                            </label>
+	                        </th>
+	                        <th>瓶号</th>
+	                        <th>记录时间</th>
+	                        <th>留样量(mL)</th>
+	                        <th>COD(mg/L)</th>
+	                        <th>PH</th>
+	                        <th>NH3-N(mg/L)</th>
+	                    </tr>
+                    </thead>
+
+
+                    <tbody>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+	jQuery(function($) {
+		$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
+			$(this).prev().focus();
+		});
+	});
+    function clearSearch() {
+        $("#dateOne").val('');
+        $("#dateTwo").val('');
+    }
+    var cyRecordTable;
+    function querycyRecordList() {
+        var params = {};
+        params.enterpriseNo = $enterpriseNo;
+        params.dateOne = $("#dateOne").val();
+        params.dateTwo = $("#dateTwo").val();
+        var colums = [
+            {
+                "mData": "id",
+                "sClass": "center",
+                "mRender": function (data, type, full, meta) {
+                    return '<label><input type="checkbox" name="enterprise" value="' + data + '" class="ace"> <span class="lbl"></span></label>';
+                }
+
+            },
+            {
+                "mData": "p_num",
+                "sClass": "center"
+            }
+            ,
+            {
+                "mData": "record_time",
+                "sClass": "center",
+                "mRender":function(data,type,row){
+                	return new Date(data).toLocaleDateString()+""+new Date(data).toLocaleTimeString();
+                }
+            },
+           {
+                "mData": "quantity",
+                "sClass": "center"
+            },
+            {
+                "mData": "cod",
+                "sClass": "center"
+            },
+             {
+                "mData": "ph",
+                "sClass": "center"
+            },
+             {
+                "mData": "nh",
+                "sClass": "center"
+            }
+            ];
+        if (cyRecordTable) {
+            cyRecordTable.fnDestroy();
+            
+        } 
+        cyRecordTable = getTableData("sample-table-6", "${link.contextPath}/rainwater/someRecord.json", colums, JSON.stringify(params));
+    }
+    	querycyRecordList();
+	
+
+</script>

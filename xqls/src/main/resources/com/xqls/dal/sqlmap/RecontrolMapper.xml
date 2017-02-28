@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xqls.dal.service.RecontrolMapper" >
+  <resultMap id="BaseResultMap" type="com.xqls.dal.model.Recontrol" >
+    <id column="Recontrol_no" property="recontrolNo" jdbcType="VARCHAR" />
+    <result column="enterprise_no" property="enterpriseNo" jdbcType="VARCHAR" />
+    <result column="network" property="network" jdbcType="VARCHAR" />
+    <result column="valve_time" property="valveTime" jdbcType="VARCHAR" />
+    <result column="valve_set" property="valveSet" jdbcType="VARCHAR" />
+    <result column="cystate" property="cystate" jdbcType="VARCHAR" />
+    <result column="Command_status" property="commandStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Recontrol_no, enterprise_no, network, valve_time, valve_set, cystate, Command_status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xqls.dal.model.RecontrolExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from recontrol
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from recontrol
+    where Recontrol_no = #{recontrolNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from recontrol
+    where Recontrol_no = #{recontrolNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xqls.dal.model.RecontrolExample" >
+    delete from recontrol
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xqls.dal.model.Recontrol" >
+    insert into recontrol (Recontrol_no, enterprise_no, network, 
+      valve_time, valve_set, cystate, 
+      Command_status)
+    values (#{recontrolNo,jdbcType=VARCHAR}, #{enterpriseNo,jdbcType=VARCHAR}, #{network,jdbcType=VARCHAR}, 
+      #{valveTime,jdbcType=VARCHAR}, #{valveSet,jdbcType=VARCHAR}, #{cystate,jdbcType=VARCHAR}, 
+      #{commandStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xqls.dal.model.Recontrol" >
+    insert into recontrol
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recontrolNo != null" >
+        Recontrol_no,
+      </if>
+      <if test="enterpriseNo != null" >
+        enterprise_no,
+      </if>
+      <if test="network != null" >
+        network,
+      </if>
+      <if test="valveTime != null" >
+        valve_time,
+      </if>
+      <if test="valveSet != null" >
+        valve_set,
+      </if>
+      <if test="cystate != null" >
+        cystate,
+      </if>
+      <if test="commandStatus != null" >
+        Command_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recontrolNo != null" >
+        #{recontrolNo,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseNo != null" >
+        #{enterpriseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="network != null" >
+        #{network,jdbcType=VARCHAR},
+      </if>
+      <if test="valveTime != null" >
+        #{valveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="valveSet != null" >
+        #{valveSet,jdbcType=VARCHAR},
+      </if>
+      <if test="cystate != null" >
+        #{cystate,jdbcType=VARCHAR},
+      </if>
+      <if test="commandStatus != null" >
+        #{commandStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xqls.dal.model.RecontrolExample" resultType="java.lang.Integer" >
+    select count(*) from recontrol
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update recontrol
+    <set >
+      <if test="record.recontrolNo != null" >
+        Recontrol_no = #{record.recontrolNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterpriseNo != null" >
+        enterprise_no = #{record.enterpriseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.network != null" >
+        network = #{record.network,jdbcType=VARCHAR},
+      </if>
+      <if test="record.valveTime != null" >
+        valve_time = #{record.valveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.valveSet != null" >
+        valve_set = #{record.valveSet,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cystate != null" >
+        cystate = #{record.cystate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commandStatus != null" >
+        Command_status = #{record.commandStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update recontrol
+    set Recontrol_no = #{record.recontrolNo,jdbcType=VARCHAR},
+      enterprise_no = #{record.enterpriseNo,jdbcType=VARCHAR},
+      network = #{record.network,jdbcType=VARCHAR},
+      valve_time = #{record.valveTime,jdbcType=VARCHAR},
+      valve_set = #{record.valveSet,jdbcType=VARCHAR},
+      cystate = #{record.cystate,jdbcType=VARCHAR},
+      Command_status = #{record.commandStatus,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xqls.dal.model.Recontrol" >
+    update recontrol
+    <set >
+      <if test="enterpriseNo != null" >
+        enterprise_no = #{enterpriseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="network != null" >
+        network = #{network,jdbcType=VARCHAR},
+      </if>
+      <if test="valveTime != null" >
+        valve_time = #{valveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="valveSet != null" >
+        valve_set = #{valveSet,jdbcType=VARCHAR},
+      </if>
+      <if test="cystate != null" >
+        cystate = #{cystate,jdbcType=VARCHAR},
+      </if>
+      <if test="commandStatus != null" >
+        Command_status = #{commandStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Recontrol_no = #{recontrolNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xqls.dal.model.Recontrol" >
+    update recontrol
+    set enterprise_no = #{enterpriseNo,jdbcType=VARCHAR},
+      network = #{network,jdbcType=VARCHAR},
+      valve_time = #{valveTime,jdbcType=VARCHAR},
+      valve_set = #{valveSet,jdbcType=VARCHAR},
+      cystate = #{cystate,jdbcType=VARCHAR},
+      Command_status = #{commandStatus,jdbcType=VARCHAR}
+    where Recontrol_no = #{recontrolNo,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByMap" resultType="map">
+  select 
+Recontrol_no recontrolNo,
+ enterprise_name enterpriseName,
+ network network, 
+valve_time valveTime, 
+valve_set valveSet, 
+cystate cystate, 
+Command_status commandStatus
+ from recontrol r LEFT JOIN enterprise e on r.enterprise_no=e.enterprise_no
+  </select>
+</mapper>

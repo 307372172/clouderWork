@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xqls.dal.service.LoginMapper">
+	<resultMap type="com.xqls.dal.model.Login" id="BaseResultMap">
+		<id column="row_id" property="rowId" jdbcType="BIGINT" />
+		<association property="user" javaType="com.xqls.dal.model.User">
+			<id column="user_no" jdbcType="VARCHAR" property="userNo" />
+			<result column="user_name" jdbcType="VARCHAR" property="userName" />
+			<result column="password" jdbcType="VARCHAR" property="password" />
+			<result column="name" jdbcType="VARCHAR" property="name" />
+			<result column="role_id" jdbcType="VARCHAR" property="roleId" />
+			<result column="block_no" jdbcType="VARCHAR" property="blockNo" />
+			<result column="tenant_no" jdbcType="VARCHAR" property="tenantNo" />
+			<result column="telephone" jdbcType="VARCHAR" property="telephone" />
+			<result column="alert_level" jdbcType="INTEGER" property="alertLevel" />
+		</association>
+		<association property="role" javaType="com.xqls.dal.model.Role">
+			<id column="role_id" property="roleId" jdbcType="VARCHAR" />
+			<result column="role_name" property="roleName" jdbcType="VARCHAR" />
+			<result column="remark" property="remark" jdbcType="VARCHAR" />
+			<result column="create_time" property="createTime" jdbcType="VARCHAR" />
+		</association>
+		<association property="permission" javaType="com.xqls.dal.model.Permission">
+			<id column="permission_no" property="permissionNo" jdbcType="VARCHAR" />
+			<result column="permission_name" property="permissionName"
+				jdbcType="VARCHAR" />
+			<result column="url" property="url" jdbcType="VARCHAR" />
+		</association>
+	</resultMap>
+
+	<select id="getLoginByMap" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		SELECT *
+		FROM role_permission rp LEFT JOIN permission p ON
+		rp.permission_id=p.permission_id
+		LEFT JOIN role r ON
+		rp.role_id=r.role_id
+		LEFT JOIN user u ON u.role_id=r.role_id
+		WHERE 1=1
+		<if test="userName!=null">
+		 and u.user_name= #{userName,jdbcType=VARCHAR}
+		</if>
+		<if test="password!=null">
+		 and u.password= #{password,jdbcType=VARCHAR}
+		</if>
+		<if test="tenantNo!=null">
+		 and u.tenant_no= #{tenantNo,jdbcType=VARCHAR}
+		</if>
+	</select>
+</mapper>
