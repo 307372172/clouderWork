@@ -1,0 +1,145 @@
+<link rel="stylesheet" href="${link.contextPath}/resources/css/vrstyle.css">
+#parse("common/commonList.vm")
+<script src="${link.contextPath}/resources/js/commonDelete.js"></script>
+<script type="text/javascript">
+    function searchDailinfoHandled() {
+        var param = {};
+        var adslAccount = $("#adslAccount").val();
+        var likeInput = $("#likeInput").is(':checked')
+        if (adslAccount && adslAccount != "") {
+            if (likeInput) {
+                param.adslAccount = adslAccount+"%";
+            } else {
+                param.adslAccountEq = adslAccount;
+            }
+
+        }
+        var dailIP = $("#dailIP").val();
+        if (dailIP && dailIP != "") {
+            if (likeInput) {
+                param.dailIP = dailIP+"%";
+            } else {
+                param.dailIPEq = dailIP;
+            }
+        }
+        var dailMAC = $("#dailMAC").val();
+        if (dailMAC && dailMAC != "") {
+            if (likeInput) {
+                param.dailMAC = dailMAC+"%";
+            } else {
+                param.dailMACEq = dailMAC;
+            }
+        }
+        var beginTime = $("#beginTime").val();
+        if (beginTime && beginTime != "") {
+            param.beginTime =getDateLongTime(beginTime);
+        }
+        var endTime = $("#endTime").val();
+        if (endTime && endTime != "") {
+            param.endTime =getDateLongTime(endTime);
+        }
+        searchPage(1, 15, '${link.contextPath}/dailinfoHandled/dailinfoHandledListData.html', JSON.stringify(param), "dailinfoHandledListDiv");
+    }
+
+    function clearSearch() {
+        $("input[name='adslSearch']").val('');
+        $("#likeInput").prop("checked", false);
+    }
+
+    function deleteAccount() {
+        deleteCommon('dailinfoHandledCheckBox', '${link.contextPath}/dailinfoHandled/deleteDailinfoHandledList.json', 'searchDailinfoHandled');
+    }
+</script>
+
+<div class="right-bottom-first">
+    <div class="one"><img
+                          src="${link.contextPath}/resources/imgs/Account_pre.png.png"/><span
+            style="color:#5fbdff;border-bottom:6px solid #62bafd;"> ADSL账户信息浏览</span></div>
+   
+    <div style="float:left;margin-right:16px;margin-left:41px;margin-top:20px;"><span
+            style="margin-right:0px;">起始时间</span>
+        <input style="width: 140px;font-family:'微软雅黑'" id="beginTime" name="adslSearch" value="$date.get('yyyy-MM-dd ')00:00" type="text"/>
+    </div>
+    <div style="float:left;margin-top:20px;margin-left:41px;"><span
+            style="margin-right:0px;">结束时间</span>
+        <input style="width: 140px;font-family:'微软雅黑'" id="endTime" name="adslSearch" value="$date.get('yyyy-MM-dd ')23:59"  type="text"/>
+    </div>
+    <div style="float:left;margin-left:41px;margin-right:16px;margin-top:20px; "><span
+            style="margin-right:0px;">IPV4地址</span>
+        <input style="width: 140px;" id="dailIP" name="adslSearch" type="text"/>
+    </div>
+    
+    
+</div>
+
+<div class="four">
+
+<div style="float:left;margin-left:41px;margin-right:16px;margin-top:10px; "><span
+            style="margin-right:0px;">MAC地址</span>
+        <input style="width: 140px;" id="dailMAC" name="adslSearch" type="text"/>
+    </div>
+    <div class="mbsearch">
+       <div style="float:left;margin-left:30px;margin-right:16px;margin-top:15px;"><span
+            style="margin-right:0px;">ADSL名称</span>
+        <input style="width: 140px;" id="adslAccount" name="adslSearch" type="text"/>
+    </div>
+    <div style="width:800px;float:left;">
+      <span style="float:left;margin-right:15px;margin-left:41px;margin-top:7px;margin-bottom:20px;">模糊查询<input
+            type="checkbox" id="likeInput"/></span>
+	    <input type="button" id="cx" value="查询" style="cursor:pointer;color:#FFF;
+font-family:'微软雅黑';font-size:12px;float:left;margin-top:7px;margin-bottom:20px;" onclick="searchDailinfoHandled()"/>
+        <input type="button" onclick="clearSearch()" id="cz" value="重置" style="cursor:pointer;color:#69bdfe;
+font-family:'微软雅黑';font-size:12px;background:#FFF;float:left;margin-right:10px;margin-left:20px;margin-top:7px;margin-bottom:20px;"/>
+        #if($shiro.hasRole("1"))
+            <input type="button" id="cx" value="删除" style="cursor:pointer;color:#FFF;
+font-family:'微软雅黑';font-size:12px;float:left;margin-left:20px;margin-top:7px;margin-bottom:20px;" onclick="deleteAccount()"/>
+        #end 
+	<input type="button" id="cx" value="导出" style="cursor:pointer;color:#FFF;
+font-family:'微软雅黑';font-size:12px;float:left;margin-left:20px;margin-top:7px;margin-bottom:20px;" onclick="window.location.href='${link.contextPath}/poi/dailinfoHandled.html'"/>
+    </div>
+    </div>
+</div>
+
+
+<script>
+    listDivMaxheight=325;
+    otherHeight=250;
+    tableDivId="dailinfoHandledListDiv";
+    jQuery(
+            function() {
+                autodivheight();
+            });
+</script>
+<div class="right-bottom-second" >
+    <table width="98%" border="0" style="color:#626262;font-size:12px;">
+        <tr style="color:#626262;font-size:14px;">
+            #if($shiro.hasRole("1"))
+                <td style="font-weight:bold;width:36px;"><input type="checkbox" id="CheckedAll"/></td>
+            #end
+            <td style="font-weight:bold;width:86px;">ADSL账号名称</td>
+            <td style="font-weight:bold;width:86px;">ADSL账号密码</td>
+            <td style="font-weight:bold;width:86px;">获取到的时间(秒)</td>
+            <td style="font-weight:bold;width:86px;">IPV4地址</td>
+            <td style="font-weight:bold;width:86px;">上线/下线</td>
+            <td style="font-weight:bold;width:86px;">MAC地址</td>
+        </tr>
+        </table>
+
+<div id="dailinfoHandledListDiv" style="clear: both;position:relative;min-height:250px;overflow-y:auto;max-height:325px;"></div>
+</div>
+<script>
+
+
+    $('#beginTime').datetimepicker({
+        format: 'Y-m-d H:i',
+        timepicker: true     //关闭时间选项
+    });
+
+
+    $('#endTime').datetimepicker({
+        format: 'Y-m-d H:i',
+        timepicker: true  //关闭时间选项
+    });
+
+    searchDailinfoHandled();
+</script>

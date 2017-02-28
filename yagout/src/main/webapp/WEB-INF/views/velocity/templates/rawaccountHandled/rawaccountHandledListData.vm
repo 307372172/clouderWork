@@ -1,0 +1,50 @@
+<script>
+    jQuery(function () {
+        $("#CheckedAll").click(function () {
+            if ($(this).is(":checked")) {
+                $("[name=rawaccountHandledCheckBox]:checkbox").prop("checked", true);
+            } else {
+                $("[name=rawaccountHandledCheckBox]:checkbox").prop("checked", false);
+            }
+        });
+    })
+
+</script>
+
+
+    <div class="right-bottom-second">
+    <table width="98%" border="0" style="color:#626262;font-size:12px;">
+        #if($commonPage&&$commonPage.pageData)
+            #foreach($rawaccountHandled in $commonPage.pageData)
+                <tr>
+                    #if(!$popUp&&$shiro.hasRole("1"))
+                        <td><input type="checkbox" name="rawaccountHandledCheckBox" value="$!rawaccountHandled.ID"/>
+                        </td>
+                        <td>$!{rawaccountHandled.AccountName}</td>
+                    <td style="width:8%;">$!{rawaccountHandled.Password}</td>
+                    <td style="width:14%;">$!{rawaccountHandled.TypeName}</td>
+                    <td style="width:15%;">$!{rawaccountHandled.ADSLAccount}</td>
+                    <td style="width:18%;">$!{rawaccountHandled.IPAddr}</td>
+                    <td style="width:16%;">$!{rawaccountHandled.CapPort}</td>
+                    #set($capTime=$!rawaccountHandled.CapTime * 1000)
+                    <td style="width:15%;">$!date.format('yyyy-MM-dd HH:mm ',$capTime)</td>
+                         #else
+                    <td style="width:11%;">$!{rawaccountHandled.AccountName}</td>
+                    <td style="width:8%;">$!{rawaccountHandled.Password}</td>
+                    <td style="width:14%;">$!{rawaccountHandled.TypeName}</td>
+                    <td style="width:14%;">$!{rawaccountHandled.ADSLAccount}</td>
+                    <td style="width:18%;">$!{rawaccountHandled.IPAddr}</td>
+                    <td style="width:16%;">$!{rawaccountHandled.CapPort}</td>
+                    #set($capTime=$!rawaccountHandled.CapTime * 1000)
+                    <td style="width:15%;">$!date.format('yyyy-MM-dd HH:mm ',$capTime)</td>
+                    #end
+                </tr>
+            #end
+        #end
+    </table>
+    #if(!$popUp)
+        #pagebar($commonPage "${link.contextPath}/rawaccountHandled/rawaccountHandledListData.html" "rawaccountHandledListDiv" )
+    #else
+        #pagebar($commonPage "${link.contextPath}/rawaccountHandled/rawaccountHandledListData.html" "editDataDiv"  "pageIn")
+    #end
+</div>

@@ -1,0 +1,93 @@
+
+<link rel="stylesheet" href="${link.contextPath}/resources/css/vrstyle.css">
+<link rel="stylesheet" type="text/css" href="${link.contextPath}/resources/css/lanrenzhijia.css">
+<script>
+    jQuery(function () {
+        $("#CheckedAll").click(function () {
+            if ($(this).is(":checked")) {
+                $("[name=accountCheckBox]:checkbox").prop("checked", true);
+            } else {
+                $("[name=accountCheckBox]:checkbox").prop("checked", false);
+            }
+        });
+    })
+
+    function dailinDetail(accountName) {
+        var param = getSearchParam();
+        param.accountNameEq = accountName;
+        param.popUp = true;
+        var dataparams = {pageNo: 1, rows: 15, params: JSON.stringify(param)};
+        var spinner;
+        $.ajax({
+            url: '${link.contextPath}/rawaccountHandled/rawaccountHandledListData.html',
+            data: dataparams,
+            beforeSend: function () {
+                spinner= commonLoad("accountListDiv");
+            },
+            success: function (data) {
+            	var html = document.getElementById("tables").innerHTML;
+                editDataCommon(data, 800, 460, accountName + "的轨迹",html);
+            },
+            error: function () {
+            },
+            complete: function () {
+                spinner.spin();//移除加载
+            }
+        });
+    }
+
+</script>
+    <table width="98%" border="0" style="color:#626262;font-size:12px;">
+        <tr style="color:#f7fafa;font-size:14px;height: 10px;">
+        </tr>
+        #if($commonPage&&$commonPage.pageData)
+            #foreach($account  in $commonPage.pageData)
+                <tr>
+                    #if($shiro.hasRole("1"))
+                        <td><input type="checkbox" name="accountCheckBox" value="$!account.ID"/></td>
+                    <td>$!{account.AccountName}</td>
+                    <td style="width:6%;">$!{account.Password}</td>
+                    <td style="width:7%;">$!{account.TypeName}</td>
+                    <td style="width:12%;">$!{account.LastCapADSL}</td>
+                    <td style="width:7%;">$!{account.History}</td>
+                    #set($accountDate=$!account.LastCapTime * 1000)
+                    <td style="width:14%;"> $!date.format('yyyy-MM-dd HH:mm ',$accountDate)</td>
+                    <td style="width:10%;">$!{account.LastCapIP}</td>
+                    <td style="width:8%;">$!{account.LastCapPort}</td>
+                    <td style="width:12%;">$!{account.LastCapMac}</td>
+                    <td style="width:7%;"><a href="javascript:void(0)" onclick="dailinDetail('$!account.AccountName')">轨迹</a></td>
+                    #else
+                     <td style="width:12%;">$!{account.AccountName}</td>
+                    <td style="width:6%;">$!{account.Password}</td>
+                    <td style="width:8%;">$!{account.TypeName}</td>
+                    <td style="width:12%;">$!{account.LastCapADSL}</td>
+                    <td style="width:7%;">$!{account.History}</td>
+                    #set($accountDate=$!account.LastCapTime * 1000)
+                    <td style="width:14%;"> $!date.format('yyyy-MM-dd HH:mm ',$accountDate)</td>
+                    <td style="width:10%;">$!{account.LastCapIP}</td>
+                    <td style="width:8%;">$!{account.LastCapPort}</td>
+                    <td style="width:12%;">$!{account.LastCapMac}</td>
+                    <td style="width:7%;"><a href="javascript:void(0)" onclick="dailinDetail('$!account.AccountName')">轨迹</a></td>
+                    #end
+                </tr>
+            #end
+        #end
+    </table>
+    <div id="tables" class="right-bottom-second" style="display:none;">
+	    <table width="91%" border="0" style="margin-left:20px;color:#626262;font-size:12px;height:20px;">
+	        <tr style="color:#626262;font-size:14px;">
+	            <td style="font-weight:bold;width:56px;">账号名称</td>
+	            <td style="font-weight:bold;width:45px;">密码</td>
+	            <td style="font-weight:bold;width:50px;">账号类型</td>
+	            <td style="font-weight:bold;width:86px;">ADSL账户</td>
+	            <td style="font-weight:bold;width:86px;">登陆的IP</td>
+	            <td style="font-weight:bold;width:50px;">登陆的端口</td>
+	            <td style="font-weight:bold;width:86px;">登陆的时间</td>
+	        </tr>
+	    </table>
+	</div>
+    #pagebar($commonPage "${link.contextPath}/account/accountListData.html" "accountListDiv")
+#parse("common/commonEdit.vm")
+
+
+

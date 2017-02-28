@@ -1,0 +1,31 @@
+<script src="${link.contextPath}/resources/js/jquery.min.js"></script>
+<script src="${link.contextPath}/resources/js/jquery.datetimepicker.full.min.js"></script>
+<script  src="${link.contextPath}/resources/js/commonPage.js"></script>
+
+
+<script>
+    $.datetimepicker.setLocale('ch');//设置中文
+
+var listDivMaxheight;
+var otherHeight;
+var tableDivId;
+
+function autodivheight(){ //函数：获取尺寸
+    //获取浏览器窗口高度
+    var winHeight=0;
+    if (window.innerHeight)
+        winHeight = window.innerHeight;
+    else if ((document.body) && (document.body.clientHeight))
+        winHeight = document.body.clientHeight;
+    //通过深入Document内部对body进行检测，获取浏览器窗口高度
+    if (document.documentElement && document.documentElement.clientHeight)
+        winHeight = document.documentElement.clientHeight;
+ var  showMaxHeight=  winHeight-otherHeight;
+    if(showMaxHeight<listDivMaxheight){
+    showMaxHeight=listDivMaxheight
+    }
+    $("#"+tableDivId).css("max-height",showMaxHeight);
+}
+window.onresize=autodivheight; //浏览器窗口发生变化时同时变化DIV高度
+
+</script>

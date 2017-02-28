@@ -1,0 +1,25 @@
+﻿
+
+
+    <table width="98%" border="0" style="color:#626262;font-size:12px;">
+        <tr style="color:#626262;font-size:10px;height:1px;">
+        </tr>
+
+        #if($commonPage&&$commonPage.pageData)
+            #foreach($yagout_log in $commonPage.pageData)
+                <tr>
+                    <td style="width:20%;">$!{yagout_log.yagout_user_name}</td>
+		    <td >$!{yagout_log.is_success}</td>
+                    <td style="width:25%;">$!{yagout_log.log_time}</td>
+		    <td style="width:18%;">$!{yagout_log.log_msg}</td>
+                    <td style="width:20%;">$!{yagout_log.log_type}</td>
+                </tr>
+            #end
+        #end
+
+
+    </table>
+    #pagebar($commonPage "${link.contextPath}/admin/logListData.html" "logListDiv")
+
+
+

@@ -1,0 +1,30 @@
+<script  src="${link.contextPath}/resources/js/commonPage.js"></script>
+    <table width="98%" border="0" style="color:#626262;font-size:12px;margin-right:5px">
+       <tr style="color:#f7fafa;font-size:14px;height: 12px;">
+        </tr>
+
+        #if($commonPage&&$commonPage.pageData)
+            #foreach($account  in $commonPage.pageData)
+                <tr>
+                    <td style="width:12%;">$!{account.AccountName}</td>
+                    <td style="width:8%;">$!{account.Password}</td>
+                    <td style="width:10%;">$!{account.TypeName}</td>
+                    <td style="width:10%;">$!{account.LastCapADSL}</td>
+                    #set($accountDate=$!account.LastCapTime * 1000)
+                    <td style="width:13%;"> $!date.format('yyyy-MM-dd HH:mm ',$accountDate)</td>
+                    <td style="width:7%;">$!{account.LastCapIP}</td>
+                    <td style="width:8%;">$!{account.LastCapPort}</td>
+                    <td style="width:10%;">$!{account.LastCapMac}</td>
+                </tr>
+            #end
+        #end
+
+
+    </table>
+    #pagebar($commonPage "${link.contextPath}/account/accountListData.html" "editDataDiv"  "pageIn")
+
+
+
+
+
+
