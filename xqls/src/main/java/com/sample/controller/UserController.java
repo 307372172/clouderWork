@@ -1,4 +1,4 @@
-﻿package com.sample.controller;
+package com.sample.controller;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
