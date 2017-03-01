@@ -13,7 +13,7 @@
     mac, identity, channel, `signal`, maker, mac_ap
   </sql>
   <select id="getStationByMap" parameterType="map" resultType="java.util.HashMap">
-    select 
+       select 
     mac, identity, channel, `signal`, maker, mac_ap as macAp
     from scan_station
     where

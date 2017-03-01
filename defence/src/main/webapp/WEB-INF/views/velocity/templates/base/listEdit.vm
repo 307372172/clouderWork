@@ -1,6 +1,5 @@
 <script>
 var map = {};
-var num = 0;
 if(num == 0){
 	$("#editSave").removeClass("btn-info");
 	$("#editSave").addClass("disabled");

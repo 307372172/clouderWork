@@ -48,7 +48,6 @@ public class AlarmRecordController {
 	    public String AlarmRecordListData(CommonPage commonPage) {
 	    	
 	    	arBiz.queryAlarmRecordPage(commonPage);
-	    	System.out.println(commonPage.toShowPage());
 	        return commonPage.toShowPage();
 	    }
 	  

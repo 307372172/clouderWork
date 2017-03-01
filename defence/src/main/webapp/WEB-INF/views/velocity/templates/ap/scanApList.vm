@@ -1,5 +1,6 @@
 #parse("base/gridList.vm") 
 #parse("base/listEdit.vm")
+#parse("base/bootBox.vm")
 <script>
 	var identityMap=eval('('+'$!{identity}'+')');
 	var privacyMap=eval('('+'$!{privacy}'+')');

@@ -2,9 +2,9 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function(e) {
-        $('body').on('change',$('#ImportPicInput'),function(){
-            $( "#mySql").val($( "#ImportPicInput").val());
+  
+  $('#ImportPicInput').on('change',function(){
+            $("#mySql").val($( "#ImportPicInput").val());
             var mySqlStr = new Array(); //定义一数组
         var mySql= $("#mySql").val();
         mySqlStr = mySql.split('.');
@@ -38,18 +38,14 @@
                             alert("操作成功");
                            selectLi("${link.contextPath}/index");
                             
-                        }else{ 
-                        
-                        	alert("更新错误");
-                            
-                            }
+                        }
                     },
                     error : function(msg) {
-                   
+                   	 alert("更新错误");
                     }
                 });
+                return false;
             }
-        });
 
     });
     

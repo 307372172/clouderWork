@@ -63,7 +63,7 @@ function getTableData(change){
 	var params = {};
 	
 	//表格的表头及数据
-	var colums = ['mac地址','路由名','硬件制造商','加密方式','备注','操作']
+	var colums = ['mac地址','SSID','硬件制造商','加密方式','备注','操作']
 	var models = [
 		{name:'mac',index:'mac', width:60,editable: true,editoptions:{size:"20",maxlength:"30"},key:true},
 		{name:'ssid',index:'ssid',width:75, editable:true, editoptions:{size:"20",maxlength:"30"}},
@@ -130,7 +130,7 @@ function getTableData(change){
 				window.parent.map[data[i]]="";
 			}
 			window.parent.num = window.parent.num + newNum;
-			$("#num").text(num);
+			$("#submitNum").html("您已过修改数据，请提交");
 			$("#editSave").addClass("btn-info");
 			$("#editSave").removeClass("disabled");
 		  	$(".bootbox-close-button").click();	

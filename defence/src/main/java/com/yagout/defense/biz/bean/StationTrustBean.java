@@ -13,6 +13,16 @@ public class StationTrustBean {
 
     private String remarks;
 
+    private String maker;
+
+	public String getMaker() {
+		return maker;
+	}
+
+	public void setMaker(String maker) {
+		this.maker = maker;
+	}
+
 	public String getMac() {
 		return mac;
 	}

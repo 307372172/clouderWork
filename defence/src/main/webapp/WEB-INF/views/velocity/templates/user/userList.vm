@@ -43,9 +43,9 @@ function getTableData(){
 	params.userRoleId = $("#userRoleId").val();
 	params.userNameLike = $("#userNameLike").val();
 	//表格的表头及数据
-	var colums = ['序号', '用户名称','角色名称','创建时间', '备注','操作']
+	var colums = [  'ud','用户名称','角色名称','创建时间', '备注','操作']
 	var models = [
-		{name:'userId',index:'userId',width:30,editable:false,key:true,align:'center'},
+        {name:'userId',index:'userId',width:30,hidden:true,key:true,align:'center'},
 		{name:'userName',index:'userName',editable: false,editoptions:{size:"20",maxlength:"30"},align:'center'},
 		{name:'roleName',index:'roleName',editable: true,edittype:"select",align:'center',
 			editoptions:{

@@ -192,7 +192,9 @@ public class StationTrustController {
 					stationAdapter.addApNum();
 				}else if("mac".equals(data.get("macType"))){
 					Long createTime = new Date().getTime();
-					Long cnvalidTime = DateUtils.getDateByStr((String) data.get("cnvalidTimeBean"), "yyyy-MM-dd");
+					String cnvalidTimeStr = (String) data.get("cnvalidTimeBean");
+					String timeStr = cnvalidTimeStr.replace("+", " ");
+					Long cnvalidTime = DateUtils.getDateByStr(timeStr, "yyyy-MM-dd HH:mm:ss");
 					if(createTime>cnvalidTime){
 						data.put("excpState", 0);
 					}else{

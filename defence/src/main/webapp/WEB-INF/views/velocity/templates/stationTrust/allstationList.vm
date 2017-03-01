@@ -58,11 +58,12 @@ function getTableData(change){
 	var params = {};
 	
 	//表格的表头及数据
-	var colums = ['mac地址','硬件制造商', '姓名','联系方式','备注','操作']
+	var colums = ['mac地址','硬件制造商', '姓名','部门名称','联系方式','备注','操作']
 	var models = [
 		{name:'mac',index:'mac', width:60,editable: true,editoptions:{size:"20",maxlength:"30"},key:true},
 		{name:'maker',index:'maker',width:90, editable:true, editoptions:{size:"20",maxlength:"30"}},
 		{name:'name',index:'name',width:90, editable:true, editoptions:{size:"20",maxlength:"30"}},
+		{name:'department',index:'department',width:90, editable:true, editoptions:{size:"20",maxlength:"30"}},
 		{name:'phoneNumber',index:'phoneNumber',width:90, editable:true, editoptions:{size:"20",maxlength:"30"},defval:""},
 		{name:'remarks',index:'remarks',width:90, editable:true, editoptions:{size:"20",maxlength:"30"}},
 		{name : 'mac',
@@ -121,7 +122,7 @@ function getTableData(change){
 				window.parent.map[data[i]]="";
 			}
 			window.parent.num = window.parent.num + newNum;
-			$("#num").text(num);
+			$("#submitNum").html("您已过修改数据，请提交");
 			$("#editSave").addClass("btn-info");
 			$("#editSave").removeClass("disabled");
 		  	$(".bootbox-close-button").click();	

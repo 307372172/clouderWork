@@ -1,30 +1,5 @@
 package com.yagout.defense.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.alibaba.fastjson.JSONObject;
 import com.yagout.defense.biz.DictionaryBiz;
 import com.yagout.defense.biz.LoginCheckBiz;
@@ -35,13 +10,22 @@ import com.yagout.defense.dal.model.Dictionary;
 import com.yagout.defense.dal.model.LoginCheck;
 import com.yagout.defense.dal.model.User;
 import com.yagout.defense.service.UserLogService;
-import com.yagout.defense.util.ARPUtil;
-import com.yagout.defense.util.CommonPage;
-import com.yagout.defense.util.CommonResult;
-import com.yagout.defense.util.DateFormatter;
-import com.yagout.defense.util.DictionaryEnums;
-import com.yagout.defense.util.LogTypeEnum;
-import com.yagout.defense.util.MD5Util;
+import com.yagout.defense.util.*;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.*;
 
 /**
  * 用户管理功能
@@ -78,7 +62,6 @@ public class UserController {
 	@ResponseBody
 	public String userListData(HttpServletRequest request, CommonPage commonPage) {
 		usersBiz.queryUsersByPage(commonPage);
-		System.out.println(commonPage.toShowPage());
 		return commonPage.toShowPage();
 	}
 
@@ -199,7 +182,7 @@ public class UserController {
 	@RequestMapping(value = "/checkUser/{userName}/{password}")
 	@ResponseBody
 	public String checkUser(HttpServletRequest request, @PathVariable String userName, @PathVariable String password) {
-		String mac = ARPUtil.getMacByRequest(request);
+		//String mac = ARPUtil.getMacByRequest(request);
 
 		Calendar calendar = Calendar.getInstance();
 		Date dateTime = calendar.getTime();
@@ -210,12 +193,12 @@ public class UserController {
 		int errorLimit = Integer.parseInt(dictionaryList.get(1).getDictionaryValue());
 		int minutes = Integer.parseInt(dictionaryList.get(2).getDictionaryValue());
 		
-		List<LoginCheck> loginCheckList = this.loginCheckBiz.getLoginCheckForLogin(userName, mac);
+		List<LoginCheck> loginCheckList = this.loginCheckBiz.getLoginCheckForLogin(userName, null);
 
-        CommonResult commonResult = checkLogin(userName, MD5Util.MD5(password), mac, currentTime, errorLimit, minutes, loginCheckList);
+        CommonResult commonResult = checkLogin(userName, MD5Util.MD5(password), null, currentTime, errorLimit, minutes, loginCheckList);
 
 		if (commonResult.getIsSuccess()) {
-			this.usersBiz.setUserLogin(userName, MD5Util.MD5(password), mac, commonResult);
+			this.usersBiz.setUserLogin(userName, MD5Util.MD5(password), null, commonResult);
 		}
 
 		this.userLogService.insertUserLog(LogTypeEnum.TYPE_LOGIN, commonResult.getIsSuccess(), userName,
@@ -258,7 +241,7 @@ public class UserController {
 	private void insertLoginCheck(String userName, String mac, String createTime) {
 		LoginCheck loginCheck = new LoginCheck();
 		loginCheck.setUserName(userName);
-		loginCheck.setMac(mac);
+		//loginCheck.setMac(mac);
 		loginCheck.setCreateTime(createTime);
 		loginCheck.setErrorNum(1);
 
@@ -287,7 +270,7 @@ public class UserController {
 	/**
 	 * 检查账户
 	 */
-	private CommonResult checkLogin(String userName, String password, String mac,long currentTime,int errorLimit,int minutes,List<LoginCheck> loginCheckList ) {
+	private CommonResult checkLogin(String userName, String password, String mac1,long currentTime,int errorLimit,int minutes,List<LoginCheck> loginCheckList ) {
 		CommonResult commonResult = new CommonResult();
 		boolean isLocked = false;
 		List<Long> rowIdList = null;
@@ -361,14 +344,14 @@ public class UserController {
 					   }
 					}
 					if(inserLoginCheck){
-						insertLoginCheck(userName, mac, createTime);
+						insertLoginCheck(userName, null, createTime);
 					}
 //					if(inserMacCheck){
 //						insertLoginCheck( null, mac, createTime);
 //					}
 				} else {
 					//insertLoginCheck(null, mac, createTime);
-					insertLoginCheck(userName, mac, createTime);
+					insertLoginCheck(userName, null, createTime);
 				}
 				
 				commonResult.setResultMsg("用户名或密码错误！");

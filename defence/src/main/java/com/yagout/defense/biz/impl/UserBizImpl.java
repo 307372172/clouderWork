@@ -131,10 +131,18 @@ public class UserBizImpl implements UserBiz {
 		try {
 			success = userService.updateById(userBean);
 			result.setIsSuccess(success);
-			this.userLogService.insertUserLog(LogTypeEnum.TYPE_UPDATE_USER, success, userBean.getUserName(),"");
+			if(success)
+			{
+				this.userLogService.insertUserLog(LogTypeEnum.TYPE_UPDATE_USER, success, "");
+			}
+			else
+			{
+				this.userLogService.insertUserLog(LogTypeEnum.TYPE_UPDATE_USER, success, "修改用户失败");
+			}
+			
 		} catch (Exception e) {
 			logger.error("修改用户异常", e);
-			this.userLogService.insertUserLog(LogTypeEnum.TYPE_UPDATE_USER, success, userBean.getUserName(),"修改用户异常");
+			this.userLogService.insertUserLog(LogTypeEnum.TYPE_UPDATE_USER, success, "修改用户异常");
 		}
 		return result;
 	}

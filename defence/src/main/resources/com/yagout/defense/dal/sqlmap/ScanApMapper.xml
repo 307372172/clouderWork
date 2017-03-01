@@ -177,6 +177,8 @@
             ap.maker,COUNT(ra.mac) stationCount
         FROM
             scan_ap   ap  LEFT JOIN  scan_station  ra on  ap.mac=ra.mac_ap  GROUP BY ap.mac
+
+            ORDER  by ap.`signal` desc
     
   </select>
 

@@ -37,7 +37,7 @@
 			MyBatis Generator, do not modify. This element was generated on Thu Feb 09 
 			10:30:45 CST 2017. -->
 		select
-		mac, name, maker, phone_number as phoneNumber, id_number as idNumber,  remarks
+		mac, name, maker, phone_number as phoneNumber, id_number as idNumber,  remarks, department
 		from
 		station_trust
 		where 1=1

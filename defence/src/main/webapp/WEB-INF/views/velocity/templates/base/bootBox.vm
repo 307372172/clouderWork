@@ -18,13 +18,12 @@
 
 
     function bootBoxShow(showHtml,title,width) {
-        var dialog =bootbox.dialog({
-            message: showHtml,
-            title:title
-        });
-        if(width){
-            $(".modal-content").css("width",width);
-        }
+
+            var dialog =bootbox.dialog({
+                message: showHtml,
+                title:title
+            });
+
 
     }
     

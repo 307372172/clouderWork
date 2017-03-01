@@ -212,6 +212,9 @@ public class CommonPage implements Serializable {
 		getObj.put("sEcho", sEcho);// 不知道这个值有什么用,有知道的请告知一下
 		getObj.put("iTotalRecords", iTotalRecords);//实际的行数
 		getObj.put("iTotalDisplayRecords", iTotalRecords);//显示的行数,这个要和上面写的一样
+		if(iTotalRecords==null){
+			iTotalRecords=0;
+		}
 		if(iTotalRecords%iDisplayLength == 0){
 			getObj.put("total", iTotalRecords/iDisplayLength);
 		}else{

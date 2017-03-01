@@ -1,8 +1,7 @@
 
 <script type="text/javascript">
-    $(document).ready(function(e) {
-        $('body').on('change',$('#ImportPicInput'),function(){
-            $( "#filename").val($( "#ImportPicInput").val());
+    $('#ZipImportPicInput').on('change',function(){
+            $("#filename").val($( "#ZipImportPicInput").val());
              var file = new Array(); //定义一数组
         var filename= $("#filename").val();
         file = filename.split('.');
@@ -28,7 +27,7 @@
                 url: "${link.contextPath}/update/fileUpload",
 
                 secureuri : false,//是否启用安全提交，默认为false
-                fileElementId:'ImportPicInput',//文件选择框的id属性
+                fileElementId:'ZipImportPicInput',//文件选择框的id属性
                 dataType: 'json',//服务器返回的格式
                 
                 async : false,
@@ -38,7 +37,6 @@
             }
         });
 
-    });
     
     function callback(data){
     var name;
@@ -100,7 +98,7 @@
                         &nbsp; &nbsp; &nbsp;
 						<span class="input-icon">
 						<label class="col-sm-4 control-label no-padding-right" for ="filename" >上传升级文件</label>
-							 <input type ="file" id="ImportPicInput" name= "myfile" id= "myfile" style=" display: none" />
+							 <input type ="file" id="ZipImportPicInput" name= "myfile" id= "myfile" style=" display: none" />
 							
 							<input type ="text" class="input-large" id= "filename" />
 							<br><br>
@@ -109,7 +107,7 @@
 							
 							<span id="result"></span>
 							<br><br>
-							<button class="btn btn-info"    onclick= "$('#ImportPicInput').click();" >打开
+							<button class="btn btn-info"    onclick= "$('#ZipImportPicInput').click();" >打开
 							<i class=" bigger-100"></i>
 							</button>
 							<div class="form-group" style="margin-top:40px;">

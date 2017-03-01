@@ -74,12 +74,12 @@ function getTableData(){
 		{name:'remarks',index:'remarks',width:90, editable:true, editoptions:{size:"20",maxlength:"30"}},
 		{name:'createTime',index:'createTime',width:90, editable:true, editoptions:{size:"20",maxlength:"30"},
 					formatter : function(cellvalue, options, rowObject) {
-                        return $.hd_jqGrid.dateTimeFormatter(cellvalue);
+                        return $.hd_jqGrid.dateTimeFormatter(cellvalue );
             }},
             
 		{name:'cnvalidTime',index:'cnvalidTime',width:90, editable:true, editoptions:{size:"20",maxlength:"30"},
 					formatter : function(cellvalue, options, rowObject) {
-                        return $.hd_jqGrid.dateTimeFormatter(cellvalue);
+                        return $.hd_jqGrid.dateTimeFormatter(cellvalue );
             }},
 		{name : 'mac',
             width : 50,

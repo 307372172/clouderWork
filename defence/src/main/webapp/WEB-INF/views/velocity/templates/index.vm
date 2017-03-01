@@ -34,7 +34,7 @@
             ace.settings.check('navbar', 'fixed')
         } catch (e) {
         }
-
+		var num = 0;
         function selectLi(url) {
         	if(window.map != undefined){
         		if(num != 0){
@@ -42,6 +42,7 @@
 	        		if(!success){
 	        			return ;
 	        		}
+	        		num = 0;
         		}
         	}
             if (url) {
@@ -71,7 +72,7 @@
             <a href="javascript:void(0)" class="navbar-brand">
                 <small>
                     <i class="icon-leaf"></i>
-                    WIFI防御信息系统
+                    WIFI入侵检测防御系统
                 </small>
                 
             </a><!-- /.brand -->
@@ -348,12 +349,13 @@ function reLoadDivContent(){
 					 } 
 				}
 			});
-	setTimeout(getSpace,5000);//设置为5秒
+	setTimeout(getSpace,600000);//设置为5秒
 	}
 
-	setTimeout(reLoadDivContent,10000);
-	setTimeout(getSpace,5000);
-
+    reLoadDivContent();
+    #if($shiro.hasRole("1"))
+    getSpace();
+    #end
 
        selectLi("${link.contextPath}/demt/list.html");
 </script>

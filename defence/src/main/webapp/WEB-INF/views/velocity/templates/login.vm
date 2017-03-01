@@ -3,7 +3,7 @@
 #parse("base/baseList.vm")
 #parse("base/bootBox.vm")
 
-<body class="login-layout" onkeydown='onEnterDown();'>
+<body class="login-layout">
 	<div class="main-container">
 		<div class="main-content">
 			<div class="row">
@@ -11,7 +11,7 @@
 					<div class="login-container">
 						<div class="center">
 							<h1>
-								<i class="icon-leaf green"></i> <span class="white">WIFI防御信息系统</span>
+								<i class="icon-leaf green"></i> <span class="white">WIFI入侵检测防御系统</span>
 							</h1>
 							<h4 class="blue">&copy; 亚古科技</h4>
 						</div>
@@ -58,7 +58,7 @@
 													 
 													 <button type="button" id="loginBtn"
 														class="width-35 pull-right btn btn-sm btn-primary" onclick="doLogin()">
-														<i class="icon-key"></i> 登录
+														<i class="icon-key"></i>登录
 													 </button>
 												    </div>
 												    <font id="valide" size="1" color="red"></font>
@@ -79,11 +79,22 @@
 	</div>
 
 <script>
+   
     document.onkeydown=function(event)
     {
         e = event ? event : (window.event ? window.event : null);
         if(e.keyCode==13){
+	    $('#loginBtn').focus();
             $('#loginBtn').click();//执行的方法
+        }
+    }
+
+     
+    document.onkeyup=function(event)
+    {
+        e = event ? event : (window.event ? window.event : null);
+        if(e.keyCode==13){
+            $('#loginBtn').blur();
         }
     }
 

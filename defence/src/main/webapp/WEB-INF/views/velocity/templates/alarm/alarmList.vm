@@ -4,7 +4,6 @@
     var invadeFlagNum=eval('('+'$!{invadeNum}'+')');
 	var invadeFlagMap=eval('('+'$!{invadeFlag}'+')');
 	var map={};//批量保存的按钮
-    var num = 0;
     var changeFlagMap={};
 	function saveAlarm(key,list) {
         if(!map[key]&&!changeFlagMap[key]){

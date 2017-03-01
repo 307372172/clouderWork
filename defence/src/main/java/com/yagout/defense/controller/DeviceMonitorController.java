@@ -1,13 +1,5 @@
 package com.yagout.defense.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.alibaba.fastjson.JSONObject;
 import com.yagout.defense.biz.DeviceMonitorBiz;
 import com.yagout.defense.biz.DictionaryBiz;
@@ -15,6 +7,13 @@ import com.yagout.defense.biz.bean.DeviceMonitorBean;
 import com.yagout.defense.dal.model.DeviceMonitor;
 import com.yagout.defense.util.CommonResult;
 import com.yagout.defense.util.DictionaryEnums;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/demt")
@@ -24,7 +23,6 @@ public class DeviceMonitorController {
 	@Autowired
 	DictionaryBiz dictionaryBiz;
 
-	@Autowired
 	@RequestMapping("/list")
 	@ResponseBody
 	public ModelAndView List() {
